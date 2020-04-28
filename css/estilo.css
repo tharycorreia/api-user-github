@@ -1,0 +1,124 @@
+@font-face {
+    font-family: 'Oswald';
+    src: url('../fonts/Oswald-Regular.ttf') format('truetype');
+}
+
+* {
+    font-family: 'Oswald', sans-serif;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background-color: #0D262D;
+    color: #fff;
+    height: 100%;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+tr {
+    border-bottom: solid 1px white;
+}
+
+td {
+    font-size: 1.6em;
+    padding: 10px;
+}
+
+li {
+    font-size: 1.6em;
+}
+
+.conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100%;
+}
+
+.input {
+    margin-top: 15vh;
+}
+
+.menu-principal {
+    background-color: #000000;
+    height: 100vh;
+    color: #fff;
+}
+
+.botao {
+    text-align: center; border: solid; width: 33%; border-color: #004ca2; padding: 1%;     border-width: 1px
+}
+
+.img {
+    margin-top: 12vh;
+}
+
+h2 {
+    color: #fff;
+}
+
+.detalhes {
+    margin: 0;
+}
+
+.avatar {
+    border-radius: 50%;
+}
+
+.divAvatar {
+    width: 13%;
+    display: inline-block;
+}
+
+.info-user {
+    display: inline-block;
+    width: 50%;
+}
+
+.cont {
+    width: 33%;
+    display: inline-block;
+}
+
+.info-contadores {
+    margin-top: 4%
+}
+
+#lista-repo {
+    margin-top: 10%
+}
+
+.card-repo {
+    width: 49%;
+    margin-bottom: 3%;
+    display: inline-block;
+    padding: 0 8%;
+}
+
+.item-name {
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+.logo-titulo {
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+    margin-top: 21%;
+    margin-left: -6%;
+}
+
+.div-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+}

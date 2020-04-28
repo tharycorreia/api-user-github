@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='UTF-8'>
+  <title>Consultas GitHub</title>
+  <link rel='stylesheet' href='css/estilo.css'>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body class="detalhes menu-principal">
+  <div class="container-md input-conteiner info-contadores">
+    <div class="divAvatar" id="avatar" style="position: absolute"></div>
+    
+    <div style=' width: 70%;margin-left: 28%'>
+      <div class="info-user">
+        <div id="name"></div>
+        <div id="user"></div>
+        <div id="bio"></div>
+        <div id="email"></div>
+      </div>
+      <div class="info-contadores">
+        <div id="followers" class="cont"></div>
+        <div id="following" class="cont"></div>
+        <div id="repos" class="cont"></div>
+        <div>
+          <span class="cont">Seguidores</span>
+          <span class="cont">Seguindo</span>
+          <span class="cont">Repositórios</span>
+        </div> 
+      </div>
+    </div>
+    <div id="lista-repo"></div>
+  </div>
+  
+    
+  <script>
+    const name = sessionStorage.getItem("name");
+    const avatar = document.getElementById("avatar");
+    const nameUser = document.getElementById("name");
+    const user = document.getElementById("user");
+    const bio = document.getElementById("bio");
+    const email = document.getElementById("email");
+    const followers = document.getElementById("followers");
+    const following = document.getElementById("following");
+    const repos = document.getElementById("repos");
+    const listaRepos = document.getElementById("lista-repo");
+
+    function formataData(data) {
+      const ano = data.substring(0,4)
+      const mes = data.substring(5,7)
+      const dia = data.substring(8,10)
+
+      return `${dia}/${mes}/${ano}`
+    }
+
+    const url = `https://api.github.com/users/${name}`;
+    fetch(url)
+      .then(resp => resp.json()).then(resp => { 
+        nameUser.innerHTML = `<h1>${resp.name}</h1>`
+        avatar.innerHTML = `<img class="avatar" src="${resp.avatar_url}" width="100%">`
+        user.innerHTML = `<h4>@${resp.login}</h4>`
+        email.innerHTML = `<h5>${resp.email === null ? '' : resp.email }</h5>`
+        bio.innerHTML = `<h5>${resp.bio === null ? '' : resp.bio }</h5>`
+        followers.innerHTML = `<h3>${resp.followers}</h3>`
+        following.innerHTML = `<h3>${resp.following}</h3>`
+        repos.innerHTML = `<h3>${resp.public_repos}</h3>`
+      }) 
+
+    const urlRepos = `https://api.github.com/users/${name}/repos`;
+
+      fetch(urlRepos)
+      .then(resp => resp.json()).then(resp => { 
+        const itens = resp.reduce((html, item) =>
+          html + `
+          <div class="card-repo">
+            <h2 class="item-name">${item.name}</h2>
+            <h6>Criado em ${formataData(item.created_at)}</h6>
+            <h6>Última atualização em ${formataData(item.updated_at)}</h6>
+            <h6>Linguagem: ${item.language}</h6>
+            <h6>${item.description !== null ? item.description : '' }</h6>
+            <div style="justify-content: center; display: flex;     margin-top: 5%; ">
+              <h6 class="botao">
+                <a href="${item.git_url}">Veja no GitHub</a>
+              </h6>
+            </div>
+          </div>
+          `, ''
+        )
+        listaRepos.insertAdjacentHTML('beforeend', `<div>${itens}</div>`)
+      }) 
+  </script>
+</body>
